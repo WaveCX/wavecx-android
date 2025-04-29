@@ -7,7 +7,7 @@ publishing {
         create<MavenPublication>("release") {
             groupId = "com.github.WaveCX"
             artifactId = "wavecx-android-sdk"
-            version = "0.0.3"
+            version = "0.0.4"
 
             artifact(file("lib/wavecx-android-sdk.aar"))
 
