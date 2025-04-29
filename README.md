@@ -67,6 +67,16 @@ WaveCx.defaultInstance().startUserSession(
 )
 ```
 
+### 4. Raise Trigger Point Events
+
+Raise a trigger point event by calling `WaveCx.defaultInstance().triggerPoint` with a `triggerPointCode`.
+
+```kotlin
+WaveCx.defaultInstance().triggerPoint(
+    triggerPointCode = "account-view"
+)
+```
+
 ---
 
 ## Example: MainActivity Integration
