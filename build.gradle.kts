@@ -7,7 +7,7 @@ publishing {
         create<MavenPublication>("release") {
             groupId = "com.github.WaveCX"
             artifactId = "wavecx-android-sdk"
-            version = "0.0.2"
+            version = "0.0.3"
 
             artifact(file("lib/wavecx-android-sdk.aar"))
 
@@ -18,3 +18,9 @@ publishing {
         }
     }
 }
+
+tasks.register("assemble") {
+    group = "build"
+    description = "Fake assemble task for JitPack"
+}
+
