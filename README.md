@@ -27,7 +27,7 @@ Ensure the WaveCX Maven repository is added to your build.gradle or settings.gra
 ```groovy
 repositories {
     maven {
-        url "https://maven.pkg.github.com/WaveCX/wavecx-android"
+        url "https://jitpack.io"
     }
 }
 ```
@@ -36,7 +36,7 @@ Include the WaveCX SDK dependency in your build.gradle file. Replace wavecx-sdk-
 
 ```groovy
 dependencies {
-    implementation 'com.wavecx:wavecx-android-sdk:0.0.1'
+    implementation 'com.wavecx:wavecx-android-sdk:0.0.3'
 }
 ```
 
