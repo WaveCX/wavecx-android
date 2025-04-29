@@ -40,6 +40,12 @@ dependencies {
 }
 ```
 
+Ensure that your application has the INTERNET permission declared in your AndroidManifest.xml file.
+
+```xml
+<uses-permission android:name="android.permission.INTERNET" />
+```
+
 ### 2. SDK Initialization
 
 To initialize the WaveCX SDK, call `WaveCx.initializeDefaultInstance` with your `organizationCode` in your `MainActivity` or application entry point.
