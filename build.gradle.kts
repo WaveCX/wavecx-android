@@ -2,7 +2,13 @@ plugins {
     `maven-publish`
 }
 
-val sdkVersion = "0.0.9"
+val sdkVersion = "0.0.10"
+
+tasks.register("assemble") {
+    group = "build"
+    description = "Placeholder assemble task for JitPack"
+}
+
 
 publishing {
     publications {
@@ -34,8 +40,4 @@ publishing {
     }
 }
 
-tasks.register("assemble") {
-    group = "build"
-    description = "Placeholder assemble task for JitPack"
-}
 
