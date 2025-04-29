@@ -2,29 +2,34 @@ plugins {
     `maven-publish`
 }
 
+val release by configurations.creating
+
+dependencies {
+    release("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
+}
+
 publishing {
     publications {
         create<MavenPublication>("release") {
             groupId = "com.github.WaveCX"
             artifactId = "wavecx-android-sdk"
-            version = "0.0.7"
+            version = "0.0.8"
 
-            artifact(file("lib/wavecx-android-sdk.aar"))
+            artifact(file("lib/wavecx-android-sdk.aar")) {
+                builtBy(tasks.named("assemble"))
+            }
 
             pom {
                 name.set("WaveCX Android SDK")
                 description.set("WaveCX Android SDK")
             }
+
+            withDependenciesFromConfiguration(release)
         }
     }
 }
 
-dependencies {
-    api("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
-}
-
 tasks.register("assemble") {
     group = "build"
-    description = "Fake assemble task for JitPack"
+    description = "Placeholder assemble task for JitPack"
 }
-
