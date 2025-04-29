@@ -7,7 +7,7 @@ publishing {
         create<MavenPublication>("release") {
             groupId = "com.github.WaveCX"
             artifactId = "wavecx-android-sdk"
-            version = "0.0.6"
+            version = "0.0.7"
 
             artifact(file("lib/wavecx-android-sdk.aar"))
 
@@ -17,6 +17,10 @@ publishing {
             }
         }
     }
+}
+
+dependencies {
+    api("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
 }
 
 tasks.register("assemble") {
