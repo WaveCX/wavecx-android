@@ -2,7 +2,7 @@ plugins {
     `maven-publish`
 }
 
-val sdkVersion = "0.0.12"
+val sdkVersion = "0.0.13"
 
 tasks.register("assemble") {
     group = "build"
@@ -31,6 +31,18 @@ publishing {
                             appendNode("groupId", "org.jetbrains.kotlinx")
                             appendNode("artifactId", "kotlinx-serialization-json")
                             appendNode("version", "1.6.3")
+                            appendNode("scope", "compile")
+                        }
+                        appendNode("dependency").apply {
+                            appendNode("groupId", "com.google.code.gson")
+                            appendNode("artifactId", "gson")
+                            appendNode("version", "2.10.1")
+                            appendNode("scope", "compile")
+                        }
+                        appendNode("dependency").apply {
+                            appendNode("groupId", "com.google.android.material")
+                            appendNode("artifactId", "material")
+                            appendNode("version", "1.12.0")
                             appendNode("scope", "compile")
                         }
                     }
