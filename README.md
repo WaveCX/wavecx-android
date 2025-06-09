@@ -64,6 +64,9 @@ Start a user session by calling `WaveCx.defaultInstance().startUserSession` with
 ```kotlin
 WaveCx.defaultInstance().startUserSession(
     userId = "test-user",
+    userAttributes = mapOf(
+        "customerType" to "business",
+    ),
 )
 ```
 
@@ -137,4 +140,18 @@ fun HomeScreen() {
         }
     }
 }
+```
+
+### Listener
+To listen to content events in the SDK, set a listener as follows:
+```kotlin
+WaveCx.defaultInstance().setListener(object : WaveCxListener {
+    override fun onContentPresented(content: Content) {
+	// callback when content is presented
+    }
+
+    override fun onContentDismissed(content: Content) {
+	// callback when content is dismissed
+    }
+})
 ```

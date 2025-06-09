@@ -1,9 +1,9 @@
 package com.wavecx.sdk.examples.kotlin.jetpackcompose
 
 import android.os.Bundle
-import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
@@ -20,8 +20,10 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
+import com.wavecx.androidsdk.Content
+import com.wavecx.androidsdk.WaveCxListener
 
-class MainActivity : ComponentActivity() {
+class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -33,6 +35,16 @@ class MainActivity : ComponentActivity() {
             context = this,
             organizationCode = "demos",
         )
+
+        WaveCx.defaultInstance().setListener(object : WaveCxListener {
+            override fun onContentPresented(content: Content) {
+                // callback when content is presented
+            }
+
+            override fun onContentDismissed(content: Content) {
+                // callback when content is dismissed
+            }
+        })
 
         WaveCx.defaultInstance().startUserSession(
             userId = "test-user",
