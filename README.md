@@ -36,7 +36,7 @@ Include the WaveCX SDK dependency in your build.gradle file. Replace wavecx-sdk-
 
 ```groovy
 dependencies {
-    implementation 'com.wavecx:wavecx-android-sdk:0.0.15'
+    implementation 'com.wavecx:wavecx-android-sdk:0.0.16'
 }
 ```
 
