@@ -2,7 +2,7 @@ plugins {
     `maven-publish`
 }
 
-val sdkVersion = "0.0.18"
+val sdkVersion = "0.0.19"
 
 tasks.register("assemble") {
     group = "build"
