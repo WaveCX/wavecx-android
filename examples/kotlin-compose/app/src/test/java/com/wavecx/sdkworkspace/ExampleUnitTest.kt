@@ -1,4 +1,4 @@
-package com.wavecx.sdk.examples.kotlin.jetpackcompose
+package com.wavecx.sdkworkspace
 
 import org.junit.Test
 

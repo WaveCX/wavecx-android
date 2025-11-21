@@ -2,7 +2,7 @@ plugins {
     `maven-publish`
 }
 
-val sdkVersion = "1.0.0"
+val sdkVersion = "1.1.0"
 
 tasks.register("assemble") {
     group = "build"
@@ -30,13 +30,13 @@ publishing {
                         appendNode("dependency").apply {
                             appendNode("groupId", "org.jetbrains.kotlinx")
                             appendNode("artifactId", "kotlinx-serialization-json")
-                            appendNode("version", "1.6.3")
+                            appendNode("version", "1.7.3")
                             appendNode("scope", "compile")
                         }
                         appendNode("dependency").apply {
                             appendNode("groupId", "com.google.code.gson")
                             appendNode("artifactId", "gson")
-                            appendNode("version", "2.10.1")
+                            appendNode("version", "2.11.0")
                             appendNode("scope", "compile")
                         }
                         appendNode("dependency").apply {

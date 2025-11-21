@@ -1,157 +1,118 @@
 # WaveCX Android SDK
 
-The WaveCX Android SDK provides a seamless way to integrate customer experience features into your Android application.
+The WaveCx Android SDK provides tools to integrate targeted content and user-triggered modals into your Android applications.
 
----
+**Version:** 1.1.0
 
-## Features Demonstrated
+## Installation
 
-- **SDK Initialization**
-- **Starting a User Session**
-- **Using Trigger Points**
-- **Showing User-Triggered Content**
-- **Integrating with Jetpack Compose UI**
+### Option 1: Using the AAR directly
 
----
+Download `lib/wavecx-android-sdk.aar` and add it to your project:
 
-## Getting Started
+1. Copy `wavecx-android-sdk.aar` to your app's `libs/` directory (or any location)
+2. Add to your app's `build.gradle.kts`:
 
-### 1. Add the SDK to Your Project
+```kotlin
+dependencies {
+    // If you copied to libs/ directory:
+    implementation(files("libs/wavecx-android-sdk.aar"))
 
-Ensure the WaveCX SDK is added to your project's dependencies.
+    // Or use absolute/relative path:
+    // implementation(files("path/to/wavecx-android-sdk.aar"))
 
-#### Maven
+    // Required dependencies
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.3")
+    implementation("com.google.code.gson:gson:2.11.0")
+    implementation("com.google.android.material:material:1.12.0")
+}
+```
 
-Ensure the WaveCX Maven repository is added to your build.gradle or settings.gradle file. 
+### Option 2: Using JitPack (recommended for production)
 
-```groovy
-repositories {
-    maven {
-        url "https://jitpack.io"
+Add to your `settings.gradle.kts`:
+```kotlin
+dependencyResolutionManagement {
+    repositories {
+        maven { url = uri("https://jitpack.io") }
     }
 }
 ```
 
-Include the WaveCX SDK dependency in your build.gradle file. Replace wavecx-sdk-version with the version of the SDK you want to use.
-
-```groovy
+Add to your app's `build.gradle.kts`:
+```kotlin
 dependencies {
-    implementation 'com.wavecx:wavecx-android-sdk:1.0.0'
+    implementation("com.github.wavecx:wavecx-android:1.1.0")
 }
 ```
 
-Ensure that your application has the INTERNET permission declared in your AndroidManifest.xml file.
-
-```xml
-<uses-permission android:name="android.permission.INTERNET" />
-```
-
-### 2. SDK Initialization
-
-To initialize the WaveCX SDK, call `WaveCx.initializeDefaultInstance` with your `organizationCode` in your `MainActivity` or application entry point.
+## Quick Start
 
 ```kotlin
+// 1. Initialize the SDK
 WaveCx.initializeDefaultInstance(
     context = this,
-    organizationCode = "your-organization-code",
+    organizationCode = "your-org-code"
 )
-```
 
-### 3. Start a User Session
-
-Start a user session by calling `WaveCx.defaultInstance().startUserSession` with a `userId`.
-
-```kotlin
-WaveCx.defaultInstance().startUserSession(
-    userId = "test-user",
-    userAttributes = mapOf(
-        "customerType" to "business",
-    ),
-)
-```
-
-### 4. Raise Trigger Point Events
-
-Raise a trigger point event by calling `WaveCx.defaultInstance().triggerPoint` with a `triggerPointCode`.
-
-```kotlin
-WaveCx.defaultInstance().triggerPoint(
-    triggerPointCode = "account-view"
-)
-```
-
----
-
-## Example: MainActivity Integration
-
-Below is a breakdown of how the SDK is integrated into `MainActivity.kt`:
-
-### Full Example Code
-
-The following example demonstrates:
-
-- Setting up the SDK.
-- Managing navigation between different screens (Home, Dashboard, Notifications).
-- Using trigger points and user-triggered content.
-
-```kotlin
-class MainActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContent {
-            YourApp()
-        }
-
-        // Initialize the WaveCX SDK
-        WaveCx.initializeDefaultInstance(
-            context = this,
-            organizationCode = "demos",
-        )
-
-        // Start a user session
-        WaveCx.defaultInstance().startUserSession(
-            userId = "test-user",
-        )
-    }
-}
-```
-
-### UI Navigation and Trigger Points
-
-The app includes a bottom navigation bar with three tabs: Home, Dashboard, and Notifications. Each tab demonstrates how you can use `WaveCx` features.
-
-#### Home Screen Example
-
-- A trigger point is activated when the screen is loaded.
-- User-triggered content is displayed with a button.
-
-```kotlin
-@Composable
-fun HomeScreen() {
-    LaunchedEffect(Unit) {
-        WaveCx.defaultInstance().triggerPoint(triggerPointCode = "account-view")
-    }
-
-    CenteredText(text = "Home Screen")
-    if (WaveCx.defaultInstance().hasUserTriggeredContent()) {
-        Button(onClick = { WaveCx.defaultInstance().showUserTriggeredContent() }) {
-            Text("User-Triggered Content")
-        }
-    }
-}
-```
-
-### Listener
-To listen to content events in the SDK, set a listener as follows:
-```kotlin
-WaveCx.defaultInstance().setListener(object : WaveCxListener {
-    override fun onContentPresented(content: Content) {
-	// callback when content is presented
-    }
-
-    override fun onContentDismissed(content: Content) {
-	// callback when content is dismissed
+// 2. Set up a listener
+val waveCx = WaveCx.defaultInstance()
+waveCx.setListener(object : WaveCxListener {
+    override fun onContentReceived(content: List<Content>) {
+        // Content loaded
     }
 })
+
+// 3. Start a user session
+waveCx.startUserSession(userId = "user123")
+
+// 4. Trigger content at key points
+waveCx.triggerPoint("home-screen")
 ```
+
+## Example App
+
+See `examples/kotlin-compose/` for a complete working example built with Jetpack Compose. The example demonstrates:
+
+- SDK initialization
+- User session management
+- Trigger points
+- User-triggered content
+- Mock mode for testing
+- Event tracking
+
+To run the example:
+```bash
+cd examples/kotlin-compose
+./gradlew installDebug
+```
+
+## Documentation
+
+- [Full Documentation](README.md) - Complete SDK documentation
+- [Changelog](CHANGELOG.md) - Version history and changes
+- [Release Notes](RELEASE_NOTES_1.1.0.md) - Details about this release
+
+## Features
+
+- Start a user session with attributes
+- Trigger content based on specific trigger points
+- Display user-triggered content modals
+- Debug mode for detailed logging
+- Mock mode for testing without API calls
+- Thread-safe operations throughout
+- Automatic retry with exponential backoff
+- ProGuard/R8 compatible
+
+## Requirements
+
+- Android 5.0 (API 21) or higher
+- Kotlin 1.9.0 or higher
+
+## Support
+
+For issues and questions, please contact WaveCx support or open an issue in the repository.
+
+## License
+
+Copyright © 2025 WaveCx. All rights reserved.
