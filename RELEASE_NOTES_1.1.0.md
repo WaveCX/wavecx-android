@@ -6,6 +6,52 @@ Version 1.1.0 focuses on production readiness with comprehensive improvements to
 
 ## What's New
 
+### Debug Mode
+
+Enable detailed logging to understand SDK behavior during development:
+
+```kotlin
+WaveCx.initializeDefaultInstance(
+    context = this,
+    organizationCode = "your-org-code",
+    debugMode = true  // Enables detailed logging
+)
+```
+
+Debug mode logs API calls, content loading, trigger points, and lifecycle events - perfect for troubleshooting integration issues.
+
+### Mock Mode for Testing
+
+Test your integration without making API calls using mock mode. Use the built-in `generateMockContent()` helper to quickly create test content:
+
+```kotlin
+val mockContent = generateMockContent(listOf("home-screen", "checkout", "profile"))
+val mockConfig = MockModeConfig(
+    enabled = true,
+    customContent = mockContent
+)
+
+WaveCx.initializeDefaultInstance(
+    context = this,
+    organizationCode = "your-org-code",
+    mockModeConfig = mockConfig
+)
+```
+
+Mock mode lets you develop and test without backend dependencies. The example app demonstrates a complete mock mode implementation.
+
+### Complete Example App
+
+A full-featured example app is now included, demonstrating:
+- SDK initialization with debug and mock modes
+- User session management with attributes
+- Trigger points throughout the app flow
+- User-triggered content (buttons)
+- Event tracking
+- Modern Jetpack Compose UI
+
+Check it out in `examples/kotlin-compose/`.
+
 ### Automatic Retry for Content Loading
 
 Content loading now handles transient network issues automatically. If content fails to load, the SDK will retry up to 3 times with increasing delays (500ms, 1000ms, 2000ms). After automatic retries are exhausted, users see an error screen with a manual retry button.
